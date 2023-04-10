@@ -1,0 +1,149 @@
+// Neste LAB foi proposto um desafio para construir um sistema de hospedagem, que será usado para realizar uma reserva em um hotel. 
+// Você precisará usar a classe Pessoa, que representa o hóspede, a classe Suíte, e a classe Reserva, que fará um relacionamento entre ambos. 
+// Seu programa deverá calcular corretamente os valores dos métodos da classe Reserva,que precisará trazer a quantidade de hóspedes e o valor da diária, concedendo
+// um desconto de 10% para caso a reserva seja para um período maior que 10 dias.
+
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+
+class Pessoa {
+    public string Nome { get; set; }
+    public string Sobrenome { get; set; }
+
+    public Pessoa(string nome, string sobrenome) {
+        Nome = nome;
+        Sobrenome = sobrenome;
+    }
+}
+
+class Suite {
+    public string TipoSuite { get; set; }
+    public int Capacidade { get; set; }
+    public double ValorDiaria { get; set; }
+
+    public Suite(string TipoSuite, int capacidade, double valorDiaria) {
+        TipoSuite = tipoSuite;
+        Capacidade = capacidade;
+        ValorDiaria = valorDiaria;
+    }
+}
+
+class Reserva {
+    private List<Pessoa> hospedes;
+    private Suite suite;
+    private int diasReservados;
+
+    class Reserva {
+    private List<Pessoa> hospedes;
+    private Suite suite;
+    private int diasReservados;
+
+    public Reserva(List<Pessoa> hospedes, Suite suite) {
+        this.hospedes = hospedes;
+        this.suite = suite;
+        diasReservados = 0;
+    }
+
+    public int ObterQuantidadeHospedes() {
+        return hospedes.Count;
+    }
+
+    public double CalcularValorDiaria() {
+        double valorDiaria = suite.ValorDiaria;
+        double valorTotal = diasReservados * valorDiaria;
+        if (diasReservados > 10) {
+            valorTotal *= 0.9;
+        }
+        return valorTotal;
+    }
+
+    public void SetDiasReservados(int dias) {
+        diasReservados = dias;
+        }
+    }
+}
+
+namespace ReservaHotel {
+    public partial class FormReserva : Form {
+        private List<Pessoa> hospedes;
+        private Suite suite;
+        private Reserva reserva;
+
+        public FormReserva() {
+            InitializeComponent();
+            hospedes = new List<Pessoa>();
+        }
+
+        private void btnAdicionarHospede_Click(object sender, EventArgs e) {
+            string nome = tbNomeHospede.Text;
+            int idade = (int)nudIdadeHospede.Value;
+            Pessoa hospede = new Pessoa(nome, idade);
+            hospedes.Add(hospede);
+            tbNomeHospede.Text = "";
+            nudIdadeHospede.Value = 0;
+            AtualizarQuantidadeHospedes();
+        }
+
+        private void AtualizarQuantidadeHospedes() {
+            int quantidade = hospedes.Count;
+            lblQuantidadeHospedes.Text = $"{quantidade} hospede{(quantidade != 1 ? "s" : "")}";
+        }
+
+        private void cbSuite_SelectedIndexChanged(object sender, EventArgs e) {
+            int capacidade = int.Parse(cbSuite.SelectedItem.ToString());
+            double valorDiaria = 0.0;
+            switch (capacidade) {
+                case 1:
+                    valorDiaria = 100.0;
+                    break;
+                case 2:
+                    valorDiaria = 150.0;
+                    break;
+                case 3:
+                    valorDiaria = 200.0;
+                    break;
+            }
+            suite = new Suite(capacidade, valorDiaria);
+            AtualizarValorDiaria();
+        }
+
+        private void AtualizarValorDiaria() {
+            double valorDiaria = suite.ValorDiaria;
+            lblValorDiaria.Text = $"R$ {valorDiaria.ToString("F2")} por dia";
+        }
+
+        private void nudDiasReservados_ValueChanged(object sender, EventArgs e) {
+            int diasReservados = (int)nudDiasReservados.Value;
+            reserva?.SetDiasReservados(diasReservados);
+            AtualizarValorTotal();
+        }
+
+        private void btnFazerReserva_Click(object sender, EventArgs e) {
+            if (hospedes.Count == 0) {
+                MessageBox.Show("Adicione pelo menos um hóspede.");
+                return;
+            }
+            if (suite == null) {
+                MessageBox.Show("Selecione uma suíte.");
+                return;
+            }
+            if (nudDiasReservados.Value == 0) {
+                MessageBox.Show("Defina a quantidade de dias reservados.");
+                return;
+            }
+            reserva = new Reserva(hospedes, suite);
+            AtualizarValorTotal();
+            btnFazerReserva.Enabled = false;
+        }
+
+        private void AtualizarValorTotal() {
+            if (reserva == null) {
+                lblValorTotal.Text = "";
+                return;
+            }
+            double valorTotal = reserva.CalcularValorDiaria();
+            lblValorTotal.Text = $"Valor total da reserva: R$ {valorTotal.ToString("F2")}";
+        }
+    }
+}
