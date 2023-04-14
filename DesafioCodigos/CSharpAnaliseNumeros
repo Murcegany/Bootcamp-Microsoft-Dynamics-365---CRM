@@ -1,0 +1,116 @@
+using System;
+
+namespace Program 
+{
+  class Program 
+  {
+    static void Main(string[] args) 
+    {
+      int valor1 = int.Parse(Console.ReadLine());
+      int valor2 = int.Parse(Console.ReadLine());
+      int valor3 = int.Parse(Console.ReadLine());
+      int valor4 = int.Parse(Console.ReadLine());
+      int valor5 = int.Parse(Console.ReadLine());
+
+      int quantidadePares = 0;
+      int quantidadeImpares = 0;
+      int quantidadePositivos = 0;
+      int quantidadeNegativos = 0;
+
+      if (valor1 % 2 == 0) 
+      {
+        quantidadePares++;
+      }
+      else 
+      {
+        quantidadeImpares++;
+      }
+
+      if (valor2 % 2 == 0) 
+      {
+        quantidadePares++;
+      }
+      else 
+      {
+        quantidadeImpares++;
+      }
+
+      if (valor3 % 2 == 0) 
+      {
+        quantidadePares++;
+      }
+      else 
+      {
+        quantidadeImpares++;
+      }
+
+      if (valor4 % 2 == 0) 
+      {
+        quantidadePares++;
+      }
+      else 
+      {
+        quantidadeImpares++;
+      }
+
+      if (valor5 % 2 == 0) 
+      {
+        quantidadePares++;
+      }
+      else 
+      {
+        quantidadeImpares++;
+      }
+
+      if (valor1 > 0) 
+      {
+        quantidadePositivos++;
+      }
+      else if (valor1 < 0) 
+      {
+        quantidadeNegativos++;
+      }
+
+      if (valor2 > 0) 
+      {
+        quantidadePositivos++;
+      }
+      else if (valor2 < 0) 
+      {
+        quantidadeNegativos++;
+      }
+
+      if (valor3 > 0) 
+      {
+        quantidadePositivos++;
+      }
+      else if (valor3 < 0) 
+      {
+        quantidadeNegativos++;
+      }
+
+      if (valor4 > 0) 
+      {
+        quantidadePositivos++;
+      }
+      else if (valor4 < 0) 
+      {
+        quantidadeNegativos++;
+      }
+
+      if (valor5 > 0) 
+      {
+        quantidadePositivos++;
+      }
+      else if (valor5 < 0) 
+      {
+        quantidadeNegativos++;
+      }
+
+      Console.WriteLine("{0} par(es)", quantidadePares);
+      Console.WriteLine("{0} impar(es)", quantidadeImpares);
+      Console.WriteLine("{0} positivo(s)", quantidadePositivos);
+      Console.WriteLine("{0} negativo(s)", quantidadeNegativos);
+    }
+  }
+}
